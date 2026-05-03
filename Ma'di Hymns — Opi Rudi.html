@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- saved from url=(0053)file:///C:/Users/Rev.%20Julius/Downloads/index_7.html -->
+<!-- saved from url=(0053)file:///C:/Users/Rev.%20Julius/Downloads/index_8.html -->
 <html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -28,7 +28,7 @@ body{font-family:Lora,Georgia,serif;background:var(--cr);color:var(--tx);max-wid
 .nb{flex:1;padding:8px 4px 9px;background:none;border:none;border-bottom:2px solid transparent;color:rgba(255,255,255,.55);font-family:Lora,serif;font-size:11px;cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px;}
 .nb.on{color:var(--go);border-bottom-color:var(--go);}
 .pages{flex:1;overflow:hidden;position:relative;}
-.pg{position:absolute;inset:0;overflow-y:auto;display:none;background:var(--cr);}
+.pg{position:absolute;inset:0;overflow-y:auto;display:none;background:var(--cr);-webkit-overflow-scrolling:touch;}
 .pg.on{display:block;}
 .hero{background:linear-gradient(160deg,var(--pu),#2d1a4e);padding:30px 20px;text-align:center;color:#fff;}
 .hcross{font-size:40px;color:var(--go);margin-bottom:8px;}
@@ -55,15 +55,16 @@ body{font-family:Lora,Georgia,serif;background:var(--cr);color:var(--tx);max-wid
 .fb2.on{color:var(--go);}
 .harr{color:var(--mu);font-size:13px;}
 .vall{display:flex;align-items:center;justify-content:center;padding:13px 16px;background:var(--su);border-bottom:1px solid var(--bo);color:var(--pu);font-size:13px;font-style:italic;cursor:pointer;}
-.sbar{padding:10px 16px;background:var(--s2);border-bottom:1px solid var(--bo);}
+.sbar{padding:10px 16px;background:var(--s2);border-bottom:1px solid var(--bo);flex-shrink:0;}
 .swrap{position:relative;}
 .sico{position:absolute;left:10px;top:50%;transform:translateY(-50%);font-size:14px;color:var(--mu);}
 .sin{width:100%;padding:8px 10px 8px 32px;border:1px solid var(--bo);border-radius:20px;font-family:Lora,serif;font-size:13px;background:var(--su);color:var(--tx);outline:none;}
-.fbar{display:flex;align-items:center;gap:9px;padding:6px 16px;background:var(--su);border-bottom:1px solid var(--bo);}
+.fbar{display:flex;align-items:center;gap:9px;padding:6px 16px;background:var(--su);border-bottom:1px solid var(--bo);flex-shrink:0;}
 .flbl{font-size:11px;color:var(--mu);}
 .fsz{width:28px;height:28px;border:1px solid var(--bo);border-radius:6px;background:none;color:var(--tx);cursor:pointer;font-size:15px;font-weight:700;}
 .fval{font-size:11px;color:var(--mu);min-width:22px;text-align:center;}
 .hcnt{margin-left:auto;font-size:10px;color:var(--mu);}
+.hscroll{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;}
 .dhdr{background:var(--pu);padding:15px;flex-shrink:0;}
 .bbtn{display:inline-flex;align-items:center;gap:5px;background:none;border:none;color:rgba(255,255,255,.8);font-family:Lora,serif;font-size:13px;cursor:pointer;margin-bottom:11px;}
 .dnum2{font-size:11px;color:var(--go);font-style:italic;margin-bottom:4px;}
@@ -71,6 +72,7 @@ body{font-family:Lora,Georgia,serif;background:var(--cr);color:var(--tx);max-wid
 .dacts{display:flex;gap:8px;margin-top:12px;flex-wrap:wrap;}
 .abt{display:inline-flex;align-items:center;gap:5px;padding:6px 13px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);border-radius:20px;color:#fff;font-family:Lora,serif;font-size:12px;cursor:pointer;}
 .abt.gold{background:var(--go);border-color:var(--go);color:var(--dk);}
+.dscroll{flex:1;overflow-y:auto;-webkit-overflow-scrolling:touch;}
 .lbody{padding:20px 16px 40px;line-height:1.95;}
 .vb{margin-bottom:20px;}
 .vlbl{font-size:10px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--pu);margin-bottom:6px;}
@@ -97,6 +99,10 @@ body{font-family:Lora,Georgia,serif;background:var(--cr);color:var(--tx);max-wid
 .crname{font-family:"Playfair Display",serif;font-size:14px;font-weight:700;color:var(--pu);margin:4px 0;}
 .dark .crname{color:var(--go);}
 .empty{text-align:center;padding:50px 20px;color:var(--mu);}
+#pg-hymns{display:none;flex-direction:column;}
+#pg-hymns.on{display:flex;}
+#pg-detail{display:none;flex-direction:column;}
+#pg-detail.on{display:flex;}
 ::-webkit-scrollbar{width:3px;}
 ::-webkit-scrollbar-thumb{background:var(--bo);border-radius:2px;}
 </style>
@@ -131,24 +137,49 @@ body{font-family:Lora,Georgia,serif;background:var(--cr);color:var(--tx);max-wid
     <div class="pattr">— Anglican Call to Worship</div>
   </div>
   <div class="shead">Hymn of the Day / Opi ri Drani</div>
-  <div class="dcard" id="dc"><div class="dico">🎵</div><div style="flex:1;"><div class="dlbl">Today's Hymn</div><div class="dtitle" id="dt">To God Be the Glory</div><div class="dnum" id="dn">Hymn #7 · Opi Ki Drini Rudi</div></div><div style="color:rgba(255,255,255,.4);font-size:15px;">›</div></div>
+  <div class="dcard" id="dc">
+    <div class="dico">🎵</div>
+    <div style="flex:1;">
+      <div class="dlbl">Today's Hymn</div>
+      <div class="dtitle" id="dt">Holy, Holy, Holy</div>
+      <div class="dnum" id="dn">Hymn #1 · Taa, Taa, Taa</div>
+    </div>
+    <div style="color:rgba(255,255,255,.4);font-size:15px;">›</div>
+  </div>
   <div class="shead">Browse Hymns / Neni Opi</div>
-  <div id="hl"><div class="hi"><div class="hn">1</div><div class="hinfo"><div class="htit">Holy, Holy, Holy</div><div class="hsub2">Taa, Taa, Taa</div></div><button class="fb2 " onclick="event.stopPropagation();tf(0,this)">☆</button><span class="harr">›</span></div><div class="hi"><div class="hn">2</div><div class="hinfo"><div class="htit">Abide With Me</div><div class="hsub2">Dri Kani Abe</div></div><button class="fb2 " onclick="event.stopPropagation();tf(1,this)">☆</button><span class="harr">›</span></div><div class="hi"><div class="hn">3</div><div class="hinfo"><div class="htit">Amazing Grace</div><div class="hsub2">Fadhili Eba</div></div><button class="fb2 " onclick="event.stopPropagation();tf(2,this)">☆</button><span class="harr">›</span></div><div class="hi"><div class="hn">4</div><div class="hinfo"><div class="htit">How Great Thou Art</div><div class="hsub2">Eba Dri Ba Kelo</div></div><button class="fb2 " onclick="event.stopPropagation();tf(3,this)">☆</button><span class="harr">›</span></div><div class="hi"><div class="hn">5</div><div class="hinfo"><div class="htit">Great Is Thy Faithfulness</div><div class="hsub2">Ba Dri Agiri Ki</div></div><button class="fb2 " onclick="event.stopPropagation();tf(4,this)">☆</button><span class="harr">›</span></div><div class="hi"><div class="hn">6</div><div class="hinfo"><div class="htit">Blessed Assurance</div><div class="hsub2">Agiri Ki Dri</div></div><button class="fb2 " onclick="event.stopPropagation();tf(5,this)">☆</button><span class="harr">›</span></div><div class="vall">View all 12 hymns / Neni opi peni ›</div></div>
+  <div id="hl"><div class="hi"><div class="hn">1</div><div class="hinfo"><div class="htit">Holy, Holy, Holy</div><div class="hsub2">Taa, Taa, Taa</div></div><button class="fb2" onclick="event.stopPropagation();tf(0,this)">☆</button><span class="harr">›</span></div><div class="hi"><div class="hn">2</div><div class="hinfo"><div class="htit">Abide With Me</div><div class="hsub2">Dri Kani Abe</div></div><button class="fb2" onclick="event.stopPropagation();tf(1,this)">☆</button><span class="harr">›</span></div><div class="hi"><div class="hn">3</div><div class="hinfo"><div class="htit">Amazing Grace</div><div class="hsub2">Fadhili Eba</div></div><button class="fb2" onclick="event.stopPropagation();tf(2,this)">☆</button><span class="harr">›</span></div><div class="hi"><div class="hn">4</div><div class="hinfo"><div class="htit">How Great Thou Art</div><div class="hsub2">Eba Dri Ba Kelo</div></div><button class="fb2" onclick="event.stopPropagation();tf(3,this)">☆</button><span class="harr">›</span></div><div class="hi"><div class="hn">5</div><div class="hinfo"><div class="htit">Great Is Thy Faithfulness</div><div class="hsub2">Ba Dri Agiri Ki</div></div><button class="fb2" onclick="event.stopPropagation();tf(4,this)">☆</button><span class="harr">›</span></div><div class="hi"><div class="hn">6</div><div class="hinfo"><div class="htit">Blessed Assurance</div><div class="hsub2">Agiri Ki Dri</div></div><button class="fb2" onclick="event.stopPropagation();tf(5,this)">☆</button><span class="harr">›</span></div><div class="vall">View all 12 hymns / Neni opi peni ›</div></div>
 </div>
 
 <div class="pg on" id="pg-hymns">
-  <div class="sbar"><div class="swrap"><span class="sico">🔍</span><input class="sin" id="si" type="text" placeholder="Search by title or number / Neni..." oninput="fh(this.value)"></div></div>
-  <div class="fbar"><span class="flbl">Aa:</span><button class="fsz" onclick="cf(-1)">−</button><span class="fval" id="fv">16</span><button class="fsz" onclick="cf(1)">+</button><span class="hcnt" id="hc">12 hymns</span></div>
-  <div id="hlist"><div class="hi"><div class="hn">1</div><div class="hinfo"><div class="htit">Holy, Holy, Holy</div><div class="hsub2">Taa, Taa, Taa</div></div><button class="fb2 " onclick="event.stopPropagation();tf(0,this)">☆</button><span class="harr">›</span></div><div class="hi"><div class="hn">2</div><div class="hinfo"><div class="htit">Abide With Me</div><div class="hsub2">Dri Kani Abe</div></div><button class="fb2 " onclick="event.stopPropagation();tf(1,this)">☆</button><span class="harr">›</span></div><div class="hi"><div class="hn">3</div><div class="hinfo"><div class="htit">Amazing Grace</div><div class="hsub2">Fadhili Eba</div></div><button class="fb2 " onclick="event.stopPropagation();tf(2,this)">☆</button><span class="harr">›</span></div><div class="hi"><div class="hn">4</div><div class="hinfo"><div class="htit">How Great Thou Art</div><div class="hsub2">Eba Dri Ba Kelo</div></div><button class="fb2 " onclick="event.stopPropagation();tf(3,this)">☆</button><span class="harr">›</span></div><div class="hi"><div class="hn">5</div><div class="hinfo"><div class="htit">Great Is Thy Faithfulness</div><div class="hsub2">Ba Dri Agiri Ki</div></div><button class="fb2 " onclick="event.stopPropagation();tf(4,this)">☆</button><span class="harr">›</span></div><div class="hi"><div class="hn">6</div><div class="hinfo"><div class="htit">Blessed Assurance</div><div class="hsub2">Agiri Ki Dri</div></div><button class="fb2 " onclick="event.stopPropagation();tf(5,this)">☆</button><span class="harr">›</span></div><div class="hi"><div class="hn">7</div><div class="hinfo"><div class="htit">To God Be the Glory</div><div class="hsub2">Opi Ki Drini Rudi</div></div><button class="fb2 " onclick="event.stopPropagation();tf(6,this)">☆</button><span class="harr">›</span></div><div class="hi"><div class="hn">8</div><div class="hinfo"><div class="htit">What a Friend We Have in Jesus</div><div class="hsub2">Jiriki Dri Abe ni Yesu</div></div><button class="fb2 " onclick="event.stopPropagation();tf(7,this)">☆</button><span class="harr">›</span></div><div class="hi"><div class="hn">9</div><div class="hinfo"><div class="htit">Be Thou My Vision</div><div class="hsub2">Di Teti Ki Neni</div></div><button class="fb2 " onclick="event.stopPropagation();tf(8,this)">☆</button><span class="harr">›</span></div><div class="hi"><div class="hn">10</div><div class="hinfo"><div class="htit">Crown Him With Many Crowns</div><div class="hsub2">Aba Ki Koronyo Nyaki</div></div><button class="fb2 " onclick="event.stopPropagation();tf(9,this)">☆</button><span class="harr">›</span></div><div class="hi"><div class="hn">11</div><div class="hinfo"><div class="htit">I am so Glad our Father in heaven</div><div class="hsub2">Ma Olu Anzosi Lukudru</div></div><button class="fb2 " onclick="event.stopPropagation();tf(10,this)">☆</button><span class="harr">›</span></div><div class="hi"><div class="hn">12</div><div class="hinfo"><div class="htit">Tis so sweet to trust in Jesus</div><div class="hsub2">Geni Loso ri Yesu Dri</div></div><button class="fb2 " onclick="event.stopPropagation();tf(11,this)">☆</button><span class="harr">›</span></div></div>
+  <div class="sbar">
+    <div class="swrap">
+      <span class="sico">🔍</span>
+      <input class="sin" id="si" type="text" placeholder="Search by title or number / Neni..." oninput="fh(this.value)">
+    </div>
+  </div>
+  <div class="fbar">
+    <span class="flbl">Aa:</span>
+    <button class="fsz" onclick="cf(-1)">−</button>
+    <span class="fval" id="fv">16</span>
+    <button class="fsz" onclick="cf(1)">+</button>
+    <span class="hcnt" id="hc">12 hymns</span>
+  </div>
+  <div class="hscroll" id="hlist"><div class="hi"><div class="hn">1</div><div class="hinfo"><div class="htit">Holy, Holy, Holy</div><div class="hsub2">Taa, Taa, Taa</div></div><button class="fb2" onclick="event.stopPropagation();tf(0,this)">☆</button><span class="harr">›</span></div><div class="hi"><div class="hn">2</div><div class="hinfo"><div class="htit">Abide With Me</div><div class="hsub2">Dri Kani Abe</div></div><button class="fb2" onclick="event.stopPropagation();tf(1,this)">☆</button><span class="harr">›</span></div><div class="hi"><div class="hn">3</div><div class="hinfo"><div class="htit">Amazing Grace</div><div class="hsub2">Fadhili Eba</div></div><button class="fb2" onclick="event.stopPropagation();tf(2,this)">☆</button><span class="harr">›</span></div><div class="hi"><div class="hn">4</div><div class="hinfo"><div class="htit">How Great Thou Art</div><div class="hsub2">Eba Dri Ba Kelo</div></div><button class="fb2" onclick="event.stopPropagation();tf(3,this)">☆</button><span class="harr">›</span></div><div class="hi"><div class="hn">5</div><div class="hinfo"><div class="htit">Great Is Thy Faithfulness</div><div class="hsub2">Ba Dri Agiri Ki</div></div><button class="fb2" onclick="event.stopPropagation();tf(4,this)">☆</button><span class="harr">›</span></div><div class="hi"><div class="hn">6</div><div class="hinfo"><div class="htit">Blessed Assurance</div><div class="hsub2">Agiri Ki Dri</div></div><button class="fb2" onclick="event.stopPropagation();tf(5,this)">☆</button><span class="harr">›</span></div><div class="hi"><div class="hn">7</div><div class="hinfo"><div class="htit">To God Be the Glory</div><div class="hsub2">Opi Ki Drini Rudi</div></div><button class="fb2" onclick="event.stopPropagation();tf(6,this)">☆</button><span class="harr">›</span></div><div class="hi"><div class="hn">8</div><div class="hinfo"><div class="htit">What a Friend We Have in Jesus</div><div class="hsub2">Jiriki Dri Abe ni Yesu</div></div><button class="fb2" onclick="event.stopPropagation();tf(7,this)">☆</button><span class="harr">›</span></div><div class="hi"><div class="hn">9</div><div class="hinfo"><div class="htit">Be Thou My Vision</div><div class="hsub2">Di Teti Ki Neni</div></div><button class="fb2" onclick="event.stopPropagation();tf(8,this)">☆</button><span class="harr">›</span></div><div class="hi"><div class="hn">10</div><div class="hinfo"><div class="htit">Crown Him With Many Crowns</div><div class="hsub2">Aba Ki Koronyo Nyaki</div></div><button class="fb2" onclick="event.stopPropagation();tf(9,this)">☆</button><span class="harr">›</span></div><div class="hi"><div class="hn">11</div><div class="hinfo"><div class="htit">I am so Glad our Father in heaven</div><div class="hsub2">Ma Olu Anzosi Lukudru</div></div><button class="fb2" onclick="event.stopPropagation();tf(10,this)">☆</button><span class="harr">›</span></div><div class="hi"><div class="hn">12</div><div class="hinfo"><div class="htit">Tis so sweet to trust in Jesus</div><div class="hsub2">Geni Loso ri Yesu Dri</div></div><button class="fb2" onclick="event.stopPropagation();tf(11,this)">☆</button><span class="harr">›</span></div></div>
 </div>
 
 <div class="pg" id="pg-about">
   <div class="awrap">
-    <div class="alogo"><div class="abadge">MH</div><div class="aname">Ma'di Hymns</div><div class="atag">Opi Rudi — Anglican Hymns in Ma'di</div><div class="acnt" id="ac">12 hymns loaded</div></div>
+    <div class="alogo">
+      <div class="abadge">MH</div>
+      <div class="aname">Ma'di Hymns</div>
+      <div class="atag">Opi Rudi — Anglican Hymns in Ma'di</div>
+      <div class="acnt" id="ac">12 hymns loaded</div>
+    </div>
     <div class="asec"><h3>About / Eguni ri App ni</h3><p>Ma'di Hymns is a free digital hymnbook containing Anglican hymns in the Ma'di language. For personal devotion, congregational worship, choir use, and clergy across Ma'diland and West Nile.</p></div>
     <div class="asec"><h3>How to Use / Mana ri Ting'o ni</h3><p>Browse hymns by number or title. Search to find any hymn quickly. Tap a hymn to read full lyrics. Adjust text size with Aa buttons. Share via WhatsApp.</p></div>
     <div class="asec"><h3>Install on Phone / Tia ki Foni ni</h3><p>Open in Chrome on Android. Tap menu ⋮ and select "Add to Home Screen". Works offline after first visit.</p></div>
-    <div class="asec"><h3>Contact / Kutu Drini</h3>
+    <div class="asec">
+      <h3>Contact / Kutu Drini</h3>
       <div class="ci2" onclick="window.open(&#39;https://wa.me/256782716168&#39;,&#39;_blank&#39;)"><div class="cico" style="background:#e7f9ee;">💬</div><div><div class="cn">WhatsApp</div><div class="cv">+256 782 716 168</div></div></div>
       <div class="ci2" onclick="window.open(&#39;mailto:jitglobalimpact@gmail.com&#39;,&#39;_blank&#39;)"><div class="cico" style="background:#e8f0fe;">✉️</div><div><div class="cn">Email</div><div class="cv">jitglobalimpact@gmail.com</div></div></div>
     </div>
@@ -161,65 +192,84 @@ body{font-family:Lora,Georgia,serif;background:var(--cr);color:var(--tx);max-wid
     <button class="bbtn" onclick="gb()">‹ Back / Dri</button>
     <div class="dnum2" id="dnum2"></div>
     <div class="dtit2" id="dtit2"></div>
-    <div class="dacts"><button class="abt" onclick="sh()">💬 Share / Kolo</button><button class="abt" id="dfav" onclick="tdf()">☆ Save</button></div>
+    <div class="dacts">
+      <button class="abt" onclick="sh()">💬 Share / Kolo</button>
+      <button class="abt" id="dfav" onclick="tdf()">☆ Save</button>
+    </div>
   </div>
-  <div style="overflow-y:auto;height:calc(100vh - 200px);"><div class="lbody" id="lb"></div></div>
+  <div class="dscroll">
+    <div class="lbody" id="lb"></div>
+  </div>
 </div>
 
 </div>
 </div>
 <script>
 const HYMNS=[
-{n:1,t:"Holy, Holy, Holy",m:"Taa, Taa, Taa",l:[{y:"v",b:"Verse 1",x:"Holy, holy, holy! Lord God Almighty!\nEarly in the morning our song shall rise to Thee;\nHoly, holy, holy, merciful and mighty!\nGod in three Persons, blessed Trinity!"},
-{y:"c",b:"Chorus / Drini",x:"Glory be to the Father, and to the Son,\nAnd to the Holy Ghost;\nAs it was in the beginning, is now and ever shall be,\nWorld without end. Amen."},
-{y:"v",b:"Verse 2",x:"Holy, holy, holy! All the saints adore Thee,\nCasting down their golden crowns around the glassy sea;\nCherubim and seraphim falling down before Thee,\nWho wert, and art, and evermore shalt be."},
-{y:"v",b:"Verse 3",x:"Holy, holy, holy! Lord God Almighty!\nAll Thy works shall praise Thy Name, in earth, and sky, and sea;\nHoly, holy, holy; merciful and mighty!\nGod in three Persons, blessed Trinity!"}]},
-{n:2,t:"Abide With Me",m:"Dri Kani Abe",l:[
-{y:"v",b:"Verse 1",x:"Abide with me; fast falls the eventide;\nThe darkness deepens; Lord with me abide.\nWhen other helpers fail and comforts flee,\nHelp of the helpless, O abide with me."},
-{y:"v",b:"Verse 2",x:"Swift to its close ebbs out life\'s little day;\nEarth\'s joys grow dim; its glories pass away;\nChange and decay in all around I see;\nO Thou who changest not, abide with me."},
-{y:"v",b:"Verse 3",x:"I need Thy presence every passing hour.\nWhat but Thy grace can foil the tempter\'s power?\nWho, like Thyself, my guide and stay can be?\nThrough cloud and sunshine, Lord, abide with me."}
-]},
-{n:3,t:"Amazing Grace",m:"Fadhili Eba",l:[{y:"v",b:"Verse 1",x:"Amazing grace! how sweet the sound,\nThat saved a wretch like me!\nI once was lost, but now am found,\nWas blind, but now I see."},
-{y:"c",b:"Chorus / Drini",x:"My chains are gone, I\'ve been set free,\nMy God, my Saviour has ransomed me.\nAnd like a flood His mercy reigns,\nUnending love, amazing grace."},
-{y:"v",b:"Verse 2",x:"\'Twas grace that taught my heart to fear,\nAnd grace my fears relieved;\nHow precious did that grace appear\nThe hour I first believed."},
-{y:"v",b:"Verse 3",x:"Through many dangers, toils and snares,\nI have already come;\n\'Tis grace hath brought me safe thus far,\nAnd grace will lead me home."}]},
-{n:4,t:"How Great Thou Art",m:"Eba Dri Ba Kelo",l:[{y:"v",b:"Verse 1",x:"O Lord my God, when I in awesome wonder,\nConsider all the worlds Thy hands have made;\nI see the stars, I hear the rolling thunder,\nThy power throughout the universe displayed."},
-{y:"c",b:"Chorus / Drini",x:"Then sings my soul, my Saviour God, to Thee,\nHow great Thou art, how great Thou art!\nThen sings my soul, my Saviour God, to Thee,\nHow great Thou art, how great Thou art!"},
-{y:"v",b:"Verse 2",x:"And when I think, that God, His Son not sparing,\nSent Him to die, I scarce can take it in;\nThat on the cross, my burden gladly bearing,\nHe bled and died to take away my sin."}]},
-{n:5,t:"Great Is Thy Faithfulness",m:"Ba Dri Agiri Ki",l:[{y:"v",b:"Verse 1",x:"Great is Thy faithfulness, O God my Father,\nThere is no shadow of turning with Thee;\nThou changest not, Thy compassions, they fail not\nAs Thou hast been Thou forever wilt be."},
-{y:"c",b:"Chorus / Drini",x:"Great is Thy faithfulness! Great is Thy faithfulness!\nMorning by morning new mercies I see;\nAll I have needed Thy hand hath provided\u2014\nGreat is Thy faithfulness, Lord, unto me!"},
-{y:"v",b:"Verse 2",x:"Summer and winter, and springtime and harvest,\nSun, moon and stars in their courses above,\nJoin with all nature in manifold witness\nTo Thy great faithfulness, mercy and love."}]},
-{n:6,t:"Blessed Assurance",m:"Agiri Ki Dri",l:[{y:"v",b:"Verse 1",x:"Blessed assurance, Jesus is mine!\nOh, what a foretaste of glory divine!\nHeir of salvation, purchase of God,\nBorn of His Spirit, washed in His blood."},
-{y:"c",b:"Chorus / Drini",x:"This is my story, this is my song,\nPraising my Saviour all the day long;\nThis is my story, this is my song,\nPraising my Saviour all the day long."},
-{y:"v",b:"Verse 2",x:"Perfect submission, perfect delight,\nVisions of rapture now burst on my sight;\nAngels descending bring from above\nEchoes of mercy, whispers of love."}]},
-{n:7,t:"To God Be the Glory",m:"Opi Ki Drini Rudi",l:[
-{y:"v",b:"Verse 1",x:"To God be the glory, great things He hath taught us,\nGreat things He hath done, and great our rejoicing\nThrough Jesus the Son; but purer, and higher,\nAnd greater will be our wonder and praise."},
-{y:"c",b:"Chorus / Drini",x:"Praise the Lord, praise the Lord,\nLet the earth hear His voice!\nPraise the Lord, praise the Lord,\nLet the people rejoice!\nOh, come to the Father, through Jesus the Son,\nAnd give Him the glory, great things He hath done."}
-]},
-{n:8,t:"What a Friend We Have in Jesus",m:"Jiriki Dri Abe ni Yesu",l:[
-{y:"v",b:"Verse 1",x:"What a friend we have in Jesus,\nAll our sins and griefs to bear!\nWhat a privilege to carry\nEverything to God in prayer!\nOh, what peace we often forfeit,\nOh, what needless pain we bear,\nAll because we do not carry\nEverything to God in prayer."},
-{y:"v",b:"Verse 2",x:"Have we trials and temptations?\nIs there trouble anywhere?\nWe should never be discouraged;\nTake it to the Lord in prayer.\nCan we find a friend so faithful\nWho will all our sorrows share?\nJesus knows our every weakness;\nTake it to the Lord in prayer."}
-]},
-{n:9,t:"Be Thou My Vision",m:"Di Teti Ki Neni",l:[
-{y:"v",b:"Verse 1",x:"Be Thou my Vision, O Lord of my heart;\nNaught be all else to me, save that Thou art.\nThou my best Thought, by day or by night,\nWaking or sleeping, Thy presence my light."},
-{y:"v",b:"Verse 2",x:"Be Thou my Wisdom, and Thou my true Word;\nI ever with Thee and Thou with me, Lord;\nThou my great Father, I Thy true son;\nThou in me dwelling, and I with Thee one."},
-{y:"v",b:"Verse 3",x:"High King of Heaven, my victory won,\nMay I reach Heaven\'s joys, O bright Heaven\'s Sun!\nHeart of my own heart, whatever befall,\nStill be my Vision, O Ruler of all."}
-]},
-{n:10,t:"Crown Him With Many Crowns",m:"Aba Ki Koronyo Nyaki",l:[
-{y:"v",b:"Verse 1",x:"Crown Him with many crowns,\nThe Lamb upon His throne.\nHark! How the heavenly anthem drowns\nAll music but its own.\nAwake, my soul, and sing\nOf Him who died for thee,\nAnd hail Him as thy matchless King\nThrough all eternity."},
-{y:"v",b:"Verse 2",x:"Crown Him the Lord of life,\nWho triumphed o\'er the grave,\nAnd rose victorious in the strife\nFor those He came to save.\nHis glories now we sing,\nWho died, and rose on high,\nWho died eternal life to bring,\nAnd lives that death may die."}
-]},
-{n:11,t:"I am so Glad our Father in heaven",m:"Ma Olu Anzosi Lukudru",l:[{y:"v",b:"Verse 1",x:"Maolu anzo si ndro lokudru,\nOpi Yesu a ma leka dro si,\nLeʼjo ʼdi a la buku a ra,\nLeka Yesu dri rii ogboro ndro."},
-{y:"c",b:"Chorus / Drini",x:"Yesu ole ma, ole ma okposi\nYesu ole ma anzo si ndro\nAsi ebwe Yesu dri ri si,\nYesu alema amvupi."},
-{y:"v",b:"Verse 2",x:"Yesu kristo ole ma anzo si ndro\nLeka eji ani inyaku dri ni\nLesi odra kwe alala dri ra\nLeka Yesu dri ri ogboro ndro."},
-{y:"v",b:"Verse 3",x:"Enzi madri si josa me de ra\nYesu ebe ma enzi madri a ku\nKa ma ungwe anidri arile\nLeka Yesu dri rii ogboro"},
-{y:"v",b:"Verse 4",x:"Jo, mandre ingwe yesu dri ni ra\nMa longo ingo ri ungo ani ni,\nMa longo anzo dri ri ngo ani ni,\nLeka yesu dri rii ogboro ndro."},
-{y:"v",b:"Verse 5",x:"Yesu ole ba cidru vudri ndro\nKaki Yesu ni a i opi dru,\nAma longo ngo kare aluga,\nLeka Yesu dri amvu vudri ni."}]},
-{n:12,t:"Tis so sweet to trust in Jesus",m:"Geni Loso ri Yesu Dri",l:[{y:"v",b:"Verse 1",x:"Geni loso ri Yesu dri,\nNya I leʼjo anidri,\nNyovu, dru leʼjo anidri ga,\nNyini leʼjo Yesu dri."},
-{y:"c",b:"Chorus / Drini",x:"Opi Yesu ma nyi igeni,\nMa nyi igeni lokudru,\nYesu Kiristo, Opi madri,\nMa nyi igeni lokudru."},
-{y:"v",b:"Verse 2",x:"Geni loso ri Yesu dri,\nNyigeni ari anidri\nYesu nyekwe mani a\'i,\nAri nyidri koje ma"},
-{y:"v",b:"Verse 3",x:"Geni loso ri Yesu dri,\nEnzi nyidri e\'bejo,\nGeni si nya\'i Yesu ni,\nLidri loso ri esujo."},
-{y:"v",b:"Verse 4",x:"Ma asi egbwe Opi Yesu si,\nLoku Yesu ni ozi,\nAni saa cidru amatro,\nNdi ma care \'bu \'a ga."}]}
+  {n:1,t:"Holy, Holy, Holy",m:"Taa, Taa, Taa",l:[
+    {y:"v",b:"Verse 1",x:"Holy, holy, holy! Lord God Almighty!\nEarly in the morning our song shall rise to Thee;\nHoly, holy, holy, merciful and mighty!\nGod in three Persons, blessed Trinity!"},
+    {y:"c",b:"Chorus / Drini",x:"Glory be to the Father, and to the Son,\nAnd to the Holy Ghost;\nAs it was in the beginning, is now and ever shall be,\nWorld without end. Amen."},
+    {y:"v",b:"Verse 2",x:"Holy, holy, holy! All the saints adore Thee,\nCasting down their golden crowns around the glassy sea;\nCherubim and seraphim falling down before Thee,\nWho wert, and art, and evermore shalt be."},
+    {y:"v",b:"Verse 3",x:"Holy, holy, holy! Lord God Almighty!\nAll Thy works shall praise Thy Name, in earth, and sky, and sea;\nHoly, holy, holy; merciful and mighty!\nGod in three Persons, blessed Trinity!"}
+  ]},
+  {n:2,t:"Abide With Me",m:"Dri Kani Abe",l:[
+    {y:"v",b:"Verse 1",x:"Abide with me; fast falls the eventide;\nThe darkness deepens; Lord with me abide.\nWhen other helpers fail and comforts flee,\nHelp of the helpless, O abide with me."},
+    {y:"v",b:"Verse 2",x:"Swift to its close ebbs out life's little day;\nEarth's joys grow dim; its glories pass away;\nChange and decay in all around I see;\nO Thou who changest not, abide with me."},
+    {y:"v",b:"Verse 3",x:"I need Thy presence every passing hour.\nWhat but Thy grace can foil the tempter's power?\nWho, like Thyself, my guide and stay can be?\nThrough cloud and sunshine, Lord, abide with me."}
+  ]},
+  {n:3,t:"Amazing Grace",m:"Fadhili Eba",l:[
+    {y:"v",b:"Verse 1",x:"Amazing grace! how sweet the sound,\nThat saved a wretch like me!\nI once was lost, but now am found,\nWas blind, but now I see."},
+    {y:"c",b:"Chorus / Drini",x:"My chains are gone, I've been set free,\nMy God, my Saviour has ransomed me.\nAnd like a flood His mercy reigns,\nUnending love, amazing grace."},
+    {y:"v",b:"Verse 2",x:"'Twas grace that taught my heart to fear,\nAnd grace my fears relieved;\nHow precious did that grace appear\nThe hour I first believed."},
+    {y:"v",b:"Verse 3",x:"Through many dangers, toils and snares,\nI have already come;\n'Tis grace hath brought me safe thus far,\nAnd grace will lead me home."}
+  ]},
+  {n:4,t:"How Great Thou Art",m:"Eba Dri Ba Kelo",l:[
+    {y:"v",b:"Verse 1",x:"O Lord my God, when I in awesome wonder,\nConsider all the worlds Thy hands have made;\nI see the stars, I hear the rolling thunder,\nThy power throughout the universe displayed."},
+    {y:"c",b:"Chorus / Drini",x:"Then sings my soul, my Saviour God, to Thee,\nHow great Thou art, how great Thou art!\nThen sings my soul, my Saviour God, to Thee,\nHow great Thou art, how great Thou art!"},
+    {y:"v",b:"Verse 2",x:"And when I think, that God, His Son not sparing,\nSent Him to die, I scarce can take it in;\nThat on the cross, my burden gladly bearing,\nHe bled and died to take away my sin."}
+  ]},
+  {n:5,t:"Great Is Thy Faithfulness",m:"Ba Dri Agiri Ki",l:[
+    {y:"v",b:"Verse 1",x:"Great is Thy faithfulness, O God my Father,\nThere is no shadow of turning with Thee;\nThou changest not, Thy compassions, they fail not\nAs Thou hast been Thou forever wilt be."},
+    {y:"c",b:"Chorus / Drini",x:"Great is Thy faithfulness! Great is Thy faithfulness!\nMorning by morning new mercies I see;\nAll I have needed Thy hand hath provided\u2014\nGreat is Thy faithfulness, Lord, unto me!"},
+    {y:"v",b:"Verse 2",x:"Summer and winter, and springtime and harvest,\nSun, moon and stars in their courses above,\nJoin with all nature in manifold witness\nTo Thy great faithfulness, mercy and love."}
+  ]},
+  {n:6,t:"Blessed Assurance",m:"Agiri Ki Dri",l:[
+    {y:"v",b:"Verse 1",x:"Blessed assurance, Jesus is mine!\nOh, what a foretaste of glory divine!\nHeir of salvation, purchase of God,\nBorn of His Spirit, washed in His blood."},
+    {y:"c",b:"Chorus / Drini",x:"This is my story, this is my song,\nPraising my Saviour all the day long;\nThis is my story, this is my song,\nPraising my Saviour all the day long."},
+    {y:"v",b:"Verse 2",x:"Perfect submission, perfect delight,\nVisions of rapture now burst on my sight;\nAngels descending bring from above\nEchoes of mercy, whispers of love."}
+  ]},
+  {n:7,t:"To God Be the Glory",m:"Opi Ki Drini Rudi",l:[
+    {y:"v",b:"Verse 1",x:"To God be the glory, great things He hath taught us,\nGreat things He hath done, and great our rejoicing\nThrough Jesus the Son; but purer, and higher,\nAnd greater will be our wonder and praise."},
+    {y:"c",b:"Chorus / Drini",x:"Praise the Lord, praise the Lord,\nLet the earth hear His voice!\nPraise the Lord, praise the Lord,\nLet the people rejoice!\nOh, come to the Father, through Jesus the Son,\nAnd give Him the glory, great things He hath done."}
+  ]},
+  {n:8,t:"What a Friend We Have in Jesus",m:"Jiriki Dri Abe ni Yesu",l:[
+    {y:"v",b:"Verse 1",x:"What a friend we have in Jesus,\nAll our sins and griefs to bear!\nWhat a privilege to carry\nEverything to God in prayer!\nOh, what peace we often forfeit,\nOh, what needless pain we bear,\nAll because we do not carry\nEverything to God in prayer."},
+    {y:"v",b:"Verse 2",x:"Have we trials and temptations?\nIs there trouble anywhere?\nWe should never be discouraged;\nTake it to the Lord in prayer.\nCan we find a friend so faithful\nWho will all our sorrows share?\nJesus knows our every weakness;\nTake it to the Lord in prayer."}
+  ]},
+  {n:9,t:"Be Thou My Vision",m:"Di Teti Ki Neni",l:[
+    {y:"v",b:"Verse 1",x:"Be Thou my Vision, O Lord of my heart;\nNaught be all else to me, save that Thou art.\nThou my best Thought, by day or by night,\nWaking or sleeping, Thy presence my light."},
+    {y:"v",b:"Verse 2",x:"Be Thou my Wisdom, and Thou my true Word;\nI ever with Thee and Thou with me, Lord;\nThou my great Father, I Thy true son;\nThou in me dwelling, and I with Thee one."},
+    {y:"v",b:"Verse 3",x:"High King of Heaven, my victory won,\nMay I reach Heaven's joys, O bright Heaven's Sun!\nHeart of my own heart, whatever befall,\nStill be my Vision, O Ruler of all."}
+  ]},
+  {n:10,t:"Crown Him With Many Crowns",m:"Aba Ki Koronyo Nyaki",l:[
+    {y:"v",b:"Verse 1",x:"Crown Him with many crowns,\nThe Lamb upon His throne.\nHark! How the heavenly anthem drowns\nAll music but its own.\nAwake, my soul, and sing\nOf Him who died for thee,\nAnd hail Him as thy matchless King\nThrough all eternity."},
+    {y:"v",b:"Verse 2",x:"Crown Him the Lord of life,\nWho triumphed o'er the grave,\nAnd rose victorious in the strife\nFor those He came to save.\nHis glories now we sing,\nWho died, and rose on high,\nWho died eternal life to bring,\nAnd lives that death may die."}
+  ]},
+  {n:11,t:"I am so Glad our Father in heaven",m:"Ma Olu Anzosi Lukudru",l:[
+    {y:"v",b:"Verse 1",x:"Maolu anzo si ndro lokudru,\nOpi Yesu a ma leka dro si,\nLe\u02bcjo \u02bcdi a la buku a ra,\nLeka Yesu dri rii ogboro ndro."},
+    {y:"c",b:"Chorus / Drini",x:"Yesu ole ma, ole ma okposi\nYesu ole ma anzo si ndro\nAsi ebwe Yesu dri ri si,\nYesu alema amvupi."},
+    {y:"v",b:"Verse 2",x:"Yesu kristo ole ma anzo si ndro\nLeka eji ani inyaku dri ni\nLesi odra kwe alala dri ra\nLeka Yesu dri ri ogboro ndro."},
+    {y:"v",b:"Verse 3",x:"Enzi madri si josa me de ra\nYesu ebe ma enzi madri a ku\nKa ma ungwe anidri arile\nLeka Yesu dri rii ogboro"},
+    {y:"v",b:"Verse 4",x:"Jo, mandre ingwe yesu dri ni ra\nMa longo ingo ri ungo ani ni,\nMa longo anzo dri ri ngo ani ni,\nLeka yesu dri rii ogboro ndro."},
+    {y:"v",b:"Verse 5",x:"Yesu ole ba cidru vudri ndro\nKaki Yesu ni a i opi dru,\nAma longo ngo kare aluga,\nLeka Yesu dri amvu vudri ni."}
+  ]},
+  {n:12,t:"Tis so sweet to trust in Jesus",m:"Geni Loso ri Yesu Dri",l:[
+    {y:"v",b:"Verse 1",x:"Geni loso ri Yesu dri,\nNya I le\u02bcjo anidri,\nNyovu, dru le\u02bcjo anidri ga,\nNyini le\u02bcjo Yesu dri."},
+    {y:"c",b:"Chorus / Drini",x:"Opi Yesu ma nyi igeni,\nMa nyi igeni lokudru,\nYesu Kiristo, Opi madri,\nMa nyi igeni lokudru."},
+    {y:"v",b:"Verse 2",x:"Geni loso ri Yesu dri,\nNyigeni ari anidri\nYesu nyekwe mani a'i,\nAri nyidri koje ma"},
+    {y:"v",b:"Verse 3",x:"Geni loso ri Yesu dri,\nEnzi nyidri e'bejo,\nGeni si nya'i Yesu ni,\nLidri loso ri esujo."},
+    {y:"v",b:"Verse 4",x:"Ma asi egbwe Opi Yesu si,\nLoku Yesu ni ozi,\nAni saa cidru amatro,\nNdi ma care 'bu 'a ga."}
+  ]}
 ];
 
 let ci=null,fs=16,pp="home",dk=false,favs=[];
@@ -233,73 +283,112 @@ function gp(n){
 }
 function gb(){gp(pp||"hymns");}
 
-function mi(h,i,from){
-  const iF=favs.includes(i);
+function mi(h,idx,from){
+  const iF=favs.includes(idx);
   const d=document.createElement("div");
   d.className="hi";
-  d.innerHTML=`<div class="hn">${h.n}</div><div class="hinfo"><div class="htit">${h.t}</div><div class="hsub2">${h.m}</div></div><button class="fb2 ${iF?"on":""}" onclick="event.stopPropagation();tf(${i},this)">${iF?"★":"☆"}</button><span class="harr">›</span>`;
-  d.onclick=()=>oh(i,from);
+  d.innerHTML='<div class="hn">'+h.n+'</div><div class="hinfo"><div class="htit">'+h.t+'</div><div class="hsub2">'+h.m+'</div></div><button class="fb2'+(iF?' on':'')+'" onclick="event.stopPropagation();tf('+idx+',this)">'+(iF?'★':'☆')+'</button><span class="harr">›</span>';
+  d.onclick=function(){oh(idx,from);};
   return d;
 }
 
 function rHome(){
-  const di=new Date().getDay()%HYMNS.length,d=HYMNS[di];
+  var di=new Date().getDay()%HYMNS.length, d=HYMNS[di];
   document.getElementById("dt").textContent=d.t;
   document.getElementById("dn").textContent="Hymn #"+d.n+" · "+d.m;
-  document.getElementById("dc").onclick=()=>oh(di,"home");
-  const el=document.getElementById("hl");
+  document.getElementById("dc").onclick=function(){oh(di,"home");};
+  var el=document.getElementById("hl");
   el.innerHTML="";
-  HYMNS.slice(0,6).forEach((h,i)=>el.appendChild(mi(h,i,"home")));
-  const va=document.createElement("div");
+  var slice=HYMNS.slice(0,6);
+  for(var i=0;i<slice.length;i++){el.appendChild(mi(slice[i],i,"home"));}
+  var va=document.createElement("div");
   va.className="vall";
   va.textContent="View all "+HYMNS.length+" hymns / Neni opi peni ›";
-  va.onclick=()=>gp("hymns");
+  va.onclick=function(){gp("hymns");};
   el.appendChild(va);
 }
 
 function rList(q){
-  const fl=q?HYMNS.filter(h=>h.t.toLowerCase().includes(q.toLowerCase())||h.m.toLowerCase().includes(q.toLowerCase())||String(h.n).includes(q)):HYMNS;
+  var fl=q?HYMNS.filter(function(h){return h.t.toLowerCase().indexOf(q.toLowerCase())>-1||h.m.toLowerCase().indexOf(q.toLowerCase())>-1||String(h.n).indexOf(q)>-1;}):HYMNS;
   document.getElementById("hc").textContent=fl.length+" hymn"+(fl.length!==1?"s":"");
-  const el=document.getElementById("hlist");
+  var el=document.getElementById("hlist");
   el.innerHTML="";
   if(!fl.length){el.innerHTML='<div class="empty"><div style="font-size:36px;margin-bottom:10px;">🔍</div><p>No hymns found.</p></div>';return;}
-  fl.forEach(h=>el.appendChild(mi(h,HYMNS.indexOf(h),"hymns")));
+  for(var i=0;i<fl.length;i++){el.appendChild(mi(fl[i],HYMNS.indexOf(fl[i]),"hymns"));}
 }
 function fh(v){rList(v);}
 
-function oh(i,from){
-  ci=i;pp=from||"hymns";
-  const h=HYMNS[i];
+function oh(idx,from){
+  ci=idx; pp=from||"hymns";
+  var h=HYMNS[idx];
   document.getElementById("dnum2").textContent="Hymn #"+h.n+" · "+h.m;
   document.getElementById("dtit2").textContent=h.t;
   udf();
-  const lb=document.getElementById("lb");
+  var lb=document.getElementById("lb");
   lb.style.fontSize=fs+"px";
-  lb.innerHTML=h.l.map(bl=>bl.y==="c"
-    ?`<div class="cb2"><div class="clbl">${bl.b}</div><div class="ctxt">${bl.x.replace(/\n/g,"<br>")}</div></div>`
-    :`<div class="vb"><div class="vlbl">${bl.b}</div><div class="vtxt">${bl.x.replace(/\n/g,"<br>")}</div></div>`
-  ).join("");
+  var html="";
+  for(var i=0;i<h.l.length;i++){
+    var bl=h.l[i];
+    var txt=bl.x.replace(/\n/g,"<br>");
+    if(bl.y==="c"){
+      html+='<div class="cb2"><div class="clbl">'+bl.b+'</div><div class="ctxt">'+txt+'</div></div>';
+    } else {
+      html+='<div class="vb"><div class="vlbl">'+bl.b+'</div><div class="vtxt">'+txt+'</div></div>';
+    }
+  }
+  lb.innerHTML=html;
   gp("detail");
 }
 
-function cf(d){fs=Math.min(24,Math.max(12,fs+d));document.getElementById("fv").textContent=fs;const lb=document.getElementById("lb");if(lb)lb.style.fontSize=fs+"px";}
-function tf(i,btn){const x=favs.indexOf(i);if(x===-1)favs.push(i);else favs.splice(x,1);try{localStorage.setItem("mhf",JSON.stringify(favs));}catch(e){}btn.classList.toggle("on",favs.includes(i));btn.textContent=favs.includes(i)?"★":"☆";}
-function tdf(){if(ci===null)return;const x=favs.indexOf(ci);if(x===-1)favs.push(ci);else favs.splice(x,1);try{localStorage.setItem("mhf",JSON.stringify(favs));}catch(e){}udf();}
-function udf(){const btn=document.getElementById("dfav");const on=favs.includes(ci);btn.textContent=on?"★ Saved":"☆ Save";btn.classList.toggle("gold",on);}
+function cf(d){
+  fs=Math.min(24,Math.max(12,fs+d));
+  document.getElementById("fv").textContent=fs;
+  var lb=document.getElementById("lb");
+  if(lb)lb.style.fontSize=fs+"px";
+}
+
+function tf(idx,btn){
+  var x=favs.indexOf(idx);
+  if(x===-1)favs.push(idx);else favs.splice(x,1);
+  try{localStorage.setItem("mhf",JSON.stringify(favs));}catch(e){}
+  btn.classList.toggle("on",favs.includes(idx));
+  btn.textContent=favs.includes(idx)?"★":"☆";
+}
+
+function tdf(){
+  if(ci===null)return;
+  var x=favs.indexOf(ci);
+  if(x===-1)favs.push(ci);else favs.splice(x,1);
+  try{localStorage.setItem("mhf",JSON.stringify(favs));}catch(e){}
+  udf();
+}
+
+function udf(){
+  var btn=document.getElementById("dfav");
+  var on=favs.includes(ci);
+  btn.textContent=on?"★ Saved":"☆ Save";
+  btn.classList.toggle("gold",on);
+}
+
 function sh(){
   if(ci===null)return;
-  const h=HYMNS[ci];
-  let t="*Ma'di Hymns*\n*Hymn #"+h.n+": "+h.t+"*\n*("+h.m+")*\n\n";
-  h.l.forEach(bl=>{t+="["+bl.b+"]\n"+bl.x+"\n\n";});
+  var h=HYMNS[ci];
+  var t="*Ma'di Hymns*\n*Hymn #"+h.n+": "+h.t+"*\n*("+h.m+")*\n\n";
+  for(var i=0;i<h.l.length;i++){t+="["+h.l[i].b+"]\n"+h.l[i].x+"\n\n";}
   t+="_Shared from Ma'di Hymns — JIT Global Impact Ministries_\n_jitglobalimpact@gmail.com | +256782716168_";
   window.open("https://wa.me/?text="+encodeURIComponent(t),"_blank");
 }
-function toggleTheme(){dk=!dk;document.body.classList.toggle("dark",dk);document.getElementById("tbtn").textContent=dk?"☀️":"🌙";}
+
+function toggleTheme(){
+  dk=!dk;
+  document.body.classList.toggle("dark",dk);
+  document.getElementById("tbtn").textContent=dk?"☀️":"🌙";
+}
 
 document.getElementById("ac").textContent=HYMNS.length+" hymns loaded";
 rHome();
 rList("");
-if("serviceWorker" in navigator)navigator.serviceWorker.register("sw.js").catch(()=>{});
+if("serviceWorker" in navigator){navigator.serviceWorker.register("sw.js").catch(function(){});}
 </script>
 
 </body></html>
