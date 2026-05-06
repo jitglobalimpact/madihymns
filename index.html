@@ -1,0 +1,420 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Ma'di Hymns</title>
+<style>
+body{margin:0;font-family:Georgia,serif;background:#faf7f0;color:#2d1f45;max-width:480px;margin:0 auto;}
+#header{background:#4a2c6e;padding:10px 14px 0;}
+#logo-row{display:flex;align-items:center;justify-content:space-between;padding-bottom:8px;}
+#logo-inner{display:flex;align-items:center;gap:9px;}
+#badge{width:36px;height:36px;background:#c9a227;border-radius:8px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:14px;color:#1a0e2e;}
+#appname{font-size:16px;font-weight:700;color:#fff;}
+#appsub{font-size:10px;color:rgba(255,255,255,.7);font-style:italic;}
+#nav{display:flex;border-top:1px solid rgba(255,255,255,.15);}
+.nb{flex:1;padding:7px 4px;background:none;border:none;border-bottom:2px solid transparent;color:rgba(255,255,255,.55);font-size:11px;cursor:pointer;text-align:center;}
+.nb.active{color:#c9a227;border-bottom-color:#c9a227;}
+#pages{position:relative;}
+.page{display:none;}
+.page.active{display:block;}
+#detail-page{display:none;}
+#detail-page.active{display:block;}
+
+/* HOME */
+#hero{background:linear-gradient(150deg,#4a2c6e,#2d1a4e);padding:24px 16px;text-align:center;color:#fff;}
+#hero-cross{font-size:32px;color:#c9a227;margin-bottom:6px;}
+#hero-name{font-size:20px;font-weight:700;margin-bottom:3px;}
+#hero-sub{font-size:11px;color:rgba(255,255,255,.75);font-style:italic;}
+#prayer{margin:12px;background:#fff;border:1px solid #d4c5e2;border-top:3px solid #c9a227;border-radius:10px;padding:12px;}
+#prayer-lbl{font-size:10px;font-weight:700;text-transform:uppercase;color:#c9a227;margin-bottom:6px;}
+#prayer-txt{font-size:13px;line-height:1.8;font-style:italic;}
+.sh{padding:10px 14px 4px;font-size:10px;font-weight:700;text-transform:uppercase;color:#7a6a8a;}
+#daily{margin:0 12px 12px;background:#4a2c6e;border-radius:10px;padding:12px 14px;display:flex;align-items:center;gap:10px;cursor:pointer;}
+#daily-icon{width:38px;height:38px;background:#c9a227;border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0;}
+#daily-lbl{font-size:10px;color:rgba(255,255,255,.65);margin-bottom:2px;}
+#daily-title{font-size:14px;font-weight:700;color:#fff;}
+#daily-num{font-size:11px;color:#c9a227;}
+
+/* HYMN LIST */
+.hrow{display:flex;align-items:center;padding:11px 14px;gap:10px;border-bottom:1px solid #d4c5e2;background:#fff;cursor:pointer;}
+.hrow:hover{background:#f5f0fa;}
+.hnum{min-width:32px;height:32px;background:#f5f0fa;border:1px solid #d4c5e2;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;color:#4a2c6e;flex-shrink:0;}
+.hinfo{flex:1;min-width:0;}
+.htitle{font-size:13px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.hmadi{font-size:11px;color:#7a6a8a;margin-top:1px;}
+.harr{color:#7a6a8a;}
+#view-all{text-align:center;padding:12px;background:#fff;border-bottom:1px solid #d4c5e2;color:#4a2c6e;font-size:12px;font-style:italic;cursor:pointer;}
+
+/* HYMNS PAGE */
+#search-bar{padding:8px 12px;background:#f5f0fa;border-bottom:1px solid #d4c5e2;}
+#search-in{width:100%;padding:7px 10px;border:1px solid #d4c5e2;border-radius:18px;font-size:13px;outline:none;box-sizing:border-box;}
+#font-bar{display:flex;align-items:center;gap:8px;padding:5px 12px;background:#fff;border-bottom:1px solid #d4c5e2;}
+#font-lbl{font-size:11px;color:#7a6a8a;}
+.fbtn{width:26px;height:26px;border:1px solid #d4c5e2;border-radius:5px;background:none;cursor:pointer;font-weight:700;font-size:14px;}
+#fval{font-size:11px;color:#7a6a8a;min-width:18px;text-align:center;}
+#hcount{margin-left:auto;font-size:10px;color:#7a6a8a;}
+#hymns-list{}
+
+/* DETAIL PAGE */
+#det-header{background:#4a2c6e;padding:12px 14px;}
+#back-btn{background:none;border:none;color:rgba(255,255,255,.8);font-size:13px;cursor:pointer;margin-bottom:8px;display:block;padding:0;}
+#det-num{font-size:11px;color:#c9a227;font-style:italic;margin-bottom:3px;}
+#det-title{font-size:18px;font-weight:700;color:#fff;line-height:1.2;}
+#det-actions{display:flex;gap:7px;margin-top:10px;}
+.act-btn{padding:5px 11px;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);border-radius:18px;color:#fff;font-size:11px;cursor:pointer;}
+#lyrics-area{padding:16px 14px 40px;line-height:1.95;}
+.verse-block{margin-bottom:18px;}
+.verse-label{font-size:10px;font-weight:700;text-transform:uppercase;color:#4a2c6e;margin-bottom:5px;}
+.verse-text{font-size:16px;}
+.chorus-block{background:#f5f0fa;border-left:3px solid #c9a227;padding:11px 13px;border-radius:0 7px 7px 0;margin:12px 0;}
+.chorus-label{font-size:10px;font-weight:700;text-transform:uppercase;color:#c9a227;margin-bottom:5px;}
+.chorus-text{font-size:16px;font-style:italic;}
+
+/* ABOUT */
+#about-wrap{padding:16px;}
+#about-logo{text-align:center;padding:16px 0 14px;border-bottom:1px solid #d4c5e2;margin-bottom:16px;}
+#about-badge{width:64px;height:64px;background:#4a2c6e;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:700;color:#c9a227;margin:0 auto 10px;}
+#about-name{font-size:20px;font-weight:700;}
+#about-tag{font-size:12px;color:#7a6a8a;font-style:italic;}
+#about-count{display:inline-block;margin-top:7px;padding:2px 10px;background:#f5f0fa;border:1px solid #d4c5e2;border-radius:18px;font-size:11px;color:#7a6a8a;}
+.contact-row{display:flex;align-items:center;gap:10px;padding:9px 0;border-bottom:1px solid #d4c5e2;cursor:pointer;}
+.contact-icon{width:28px;height:28px;border-radius:7px;display:flex;align-items:center;justify-content:center;font-size:13px;}
+.contact-name{font-size:13px;font-weight:500;}
+.contact-val{font-size:11px;color:#7a6a8a;}
+#credit{text-align:center;padding:16px 0;font-size:11px;color:#7a6a8a;}
+#credit-name{font-size:13px;font-weight:700;color:#4a2c6e;margin:3px 0;}
+</style>
+</head>
+<body>
+
+<div id="header">
+  <div id="logo-row">
+    <div id="logo-inner">
+      <div id="badge">MH</div>
+      <div><div id="appname">Ma'di Hymns</div><div id="appsub">Opi Rudi - Songs of Praise</div></div>
+    </div>
+    <button onclick="toggleTheme()" style="background:rgba(255,255,255,.15);border:none;border-radius:7px;color:#fff;width:32px;height:32px;cursor:pointer;font-size:14px;" id="tbtn">🌙</button>
+  </div>
+  <div id="nav">
+    <button class="nb active" onclick="showPage('home')">🏠 Home</button>
+    <button class="nb" onclick="showPage('hymns')">📖 Hymns</button>
+    <button class="nb" onclick="showPage('about')">ℹ️ About</button>
+  </div>
+</div>
+
+<!-- HOME PAGE -->
+<div id="home-page" class="page active">
+  <div id="hero">
+    <div id="hero-cross">✝</div>
+    <div id="hero-name">Ma'di Hymns</div>
+    <div id="hero-sub">Opi Rudi ri Anglican - Anglican Songs of Praise</div>
+  </div>
+  <div id="prayer">
+    <div id="prayer-lbl">Call to Worship / Imbata ri Opini</div>
+    <div id="prayer-txt">"O Lord open our lips and our mouth shall declare your praise. You are worthy of all glory and honour now and forevermore. Amen."<br><br><em style="font-size:11px;color:#7a6a8a;">- Anglican Call to Worship</em></div>
+  </div>
+  <div class="sh">Hymn of the Day / Opi ri Drani</div>
+  <div id="daily" onclick="openDailyHymn()">
+    <div id="daily-icon">🎵</div>
+    <div style="flex:1;">
+      <div id="daily-lbl">Today's Hymn</div>
+      <div id="daily-title">Loading...</div>
+      <div id="daily-num"></div>
+    </div>
+    <div style="color:rgba(255,255,255,.4);">›</div>
+  </div>
+  <div class="sh">Browse Hymns / Neni Opi</div>
+  <div id="home-list"></div>
+  <div id="view-all" onclick="showPage('hymns')">View all hymns / Neni opi peni ›</div>
+</div>
+
+<!-- HYMNS PAGE -->
+<div id="hymns-page" class="page">
+  <div id="search-bar">
+    <input id="search-in" type="text" placeholder="Search hymns..." oninput="searchHymns(this.value)">
+  </div>
+  <div id="font-bar">
+    <span id="font-lbl">Text size:</span>
+    <button class="fbtn" onclick="changeFont(-1)">-</button>
+    <span id="fval">16</span>
+    <button class="fbtn" onclick="changeFont(1)">+</button>
+    <span id="hcount"></span>
+  </div>
+  <div id="hymns-list"></div>
+</div>
+
+<!-- ABOUT PAGE -->
+<div id="about-page" class="page">
+  <div id="about-wrap">
+    <div id="about-logo">
+      <div id="about-badge">MH</div>
+      <div id="about-name">Ma'di Hymns</div>
+      <div id="about-tag">Anglican Hymns in Ma'di Language</div>
+      <div id="about-count">14 hymns</div>
+    </div>
+    <div style="margin-bottom:16px;">
+      <div style="font-size:13px;font-weight:700;color:#4a2c6e;margin-bottom:6px;">Contact / Kutu Drini</div>
+      <div class="contact-row" onclick="window.open('https://wa.me/256782716168','_blank')">
+        <div class="contact-icon" style="background:#e7f9ee;">💬</div>
+        <div><div class="contact-name">WhatsApp</div><div class="contact-val">+256 782 716 168</div></div>
+      </div>
+      <div class="contact-row" onclick="window.open('mailto:jitglobalimpact@gmail.com','_blank')">
+        <div class="contact-icon" style="background:#e8f0fe;">✉️</div>
+        <div><div class="contact-name">Email</div><div class="contact-val">jitglobalimpact@gmail.com</div></div>
+      </div>
+    </div>
+    <div id="credit"><div>Developed by</div><div id="credit-name">JIT Global Impact Ministries</div><div>Version 1.0</div></div>
+  </div>
+</div>
+
+<!-- DETAIL PAGE -->
+<div id="detail-page">
+  <div id="det-header">
+    <button id="back-btn" onclick="closeHymn()">‹ Back / Dri</button>
+    <div id="det-num"></div>
+    <div id="det-title"></div>
+    <div id="det-actions">
+      <button class="act-btn" onclick="shareHymn()">Share WhatsApp</button>
+      <button class="act-btn" id="save-btn" onclick="saveHymn()">Save</button>
+    </div>
+  </div>
+  <div id="lyrics-area"></div>
+</div>
+
+<script>
+var HYMNS = [
+  {n:1, t:"Holy, Holy, Holy", m:"Taa, Taa, Taa", l:[
+    {y:"v", b:"Verse 1", x:"Holy, holy, holy! Lord God Almighty!<br>Early in the morning our song shall rise to Thee;<br>Holy, holy, holy, merciful and mighty!<br>God in three Persons, blessed Trinity!"},
+    {y:"c", b:"Chorus", x:"Glory be to the Father, and to the Son,<br>And to the Holy Ghost;<br>As it was in the beginning, is now and ever shall be,<br>World without end. Amen."},
+    {y:"v", b:"Verse 2", x:"Holy, holy, holy! All the saints adore Thee,<br>Casting down their golden crowns around the glassy sea;<br>Cherubim and seraphim falling down before Thee,<br>Who wert, and art, and evermore shalt be."},
+    {y:"v", b:"Verse 3", x:"Holy, holy, holy! Lord God Almighty!<br>All Thy works shall praise Thy Name, in earth, and sky, and sea;<br>Holy, holy, holy; merciful and mighty!<br>God in three Persons, blessed Trinity!"}
+  ]},
+  {n:2, t:"Abide With Me", m:"Dri Kani Abe", l:[
+    {y:"v", b:"Verse 1", x:"Abide with me; fast falls the eventide;<br>The darkness deepens; Lord with me abide.<br>When other helpers fail and comforts flee,<br>Help of the helpless, O abide with me."},
+    {y:"v", b:"Verse 2", x:"Swift to its close ebbs out life's little day;<br>Earth's joys grow dim; its glories pass away;<br>Change and decay in all around I see;<br>O Thou who changest not, abide with me."},
+    {y:"v", b:"Verse 3", x:"I need Thy presence every passing hour.<br>Through cloud and sunshine, Lord, abide with me."}
+  ]},
+  {n:3, t:"Amazing Grace", m:"Fadhili Eba", l:[
+    {y:"v", b:"Verse 1", x:"Amazing grace how sweet the sound,<br>That saved a wretch like me!<br>I once was lost but now am found,<br>Was blind but now I see."},
+    {y:"c", b:"Chorus", x:"My chains are gone I have been set free,<br>My God my Saviour has ransomed me.<br>And like a flood His mercy reigns,<br>Unending love amazing grace."},
+    {y:"v", b:"Verse 2", x:"Twas grace that taught my heart to fear,<br>And grace my fears relieved;<br>How precious did that grace appear<br>The hour I first believed."},
+    {y:"v", b:"Verse 3", x:"Through many dangers toils and snares,<br>Tis grace hath brought me safe thus far,<br>And grace will lead me home."}
+  ]},
+  {n:4, t:"How Great Thou Art", m:"Eba Dri Ba Kelo", l:[
+    {y:"v", b:"Verse 1", x:"O Lord my God when I in awesome wonder,<br>Consider all the worlds Thy hands have made;<br>I see the stars I hear the rolling thunder,<br>Thy power throughout the universe displayed."},
+    {y:"c", b:"Chorus", x:"Then sings my soul my Saviour God to Thee,<br>How great Thou art how great Thou art!<br>Then sings my soul my Saviour God to Thee,<br>How great Thou art how great Thou art!"},
+    {y:"v", b:"Verse 2", x:"And when I think that God His Son not sparing,<br>Sent Him to die I scarce can take it in;<br>He bled and died to take away my sin."}
+  ]},
+  {n:5, t:"Great Is Thy Faithfulness", m:"Ba Dri Agiri Ki", l:[
+    {y:"v", b:"Verse 1", x:"Great is Thy faithfulness O God my Father,<br>There is no shadow of turning with Thee;<br>Thou changest not Thy compassions they fail not<br>As Thou hast been Thou forever wilt be."},
+    {y:"c", b:"Chorus", x:"Great is Thy faithfulness! Great is Thy faithfulness!<br>Morning by morning new mercies I see;<br>All I have needed Thy hand hath provided<br>Great is Thy faithfulness Lord unto me!"},
+    {y:"v", b:"Verse 2", x:"Summer and winter and springtime and harvest,<br>Join with all nature in manifold witness<br>To Thy great faithfulness mercy and love."}
+  ]},
+  {n:6, t:"Blessed Assurance", m:"Agiri Ki Dri", l:[
+    {y:"v", b:"Verse 1", x:"Blessed assurance Jesus is mine!<br>Oh what a foretaste of glory divine!<br>Heir of salvation purchase of God,<br>Born of His Spirit washed in His blood."},
+    {y:"c", b:"Chorus", x:"This is my story this is my song,<br>Praising my Saviour all the day long;<br>This is my story this is my song,<br>Praising my Saviour all the day long."},
+    {y:"v", b:"Verse 2", x:"Perfect submission perfect delight,<br>Angels descending bring from above<br>Echoes of mercy whispers of love."}
+  ]},
+  {n:7, t:"To God Be the Glory", m:"Opi Ki Drini Rudi", l:[
+    {y:"v", b:"Verse 1", x:"To God be the glory great things He hath taught us,<br>Great things He hath done and great our rejoicing<br>Through Jesus the Son but purer and higher,<br>And greater will be our wonder and praise."},
+    {y:"c", b:"Chorus", x:"Praise the Lord praise the Lord,<br>Let the earth hear His voice!<br>Oh come to the Father through Jesus the Son,<br>And give Him the glory great things He hath done."}
+  ]},
+  {n:8, t:"What a Friend We Have in Jesus", m:"Jiriki Dri Abe ni Yesu", l:[
+    {y:"v", b:"Verse 1", x:"What a friend we have in Jesus,<br>All our sins and griefs to bear!<br>What a privilege to carry<br>Everything to God in prayer!"},
+    {y:"v", b:"Verse 2", x:"Have we trials and temptations?<br>Is there trouble anywhere?<br>We should never be discouraged;<br>Take it to the Lord in prayer."}
+  ]},
+  {n:9, t:"Be Thou My Vision", m:"Di Teti Ki Neni", l:[
+    {y:"v", b:"Verse 1", x:"Be Thou my Vision O Lord of my heart;<br>Naught be all else to me save that Thou art.<br>Waking or sleeping Thy presence my light."},
+    {y:"v", b:"Verse 2", x:"Be Thou my Wisdom and Thou my true Word;<br>I ever with Thee and Thou with me Lord."},
+    {y:"v", b:"Verse 3", x:"High King of Heaven my victory won,<br>Still be my Vision O Ruler of all."}
+  ]},
+  {n:10, t:"Crown Him With Many Crowns", m:"Aba Ki Koronyo Nyaki", l:[
+    {y:"v", b:"Verse 1", x:"Crown Him with many crowns,<br>The Lamb upon His throne.<br>Awake my soul and sing<br>Through all eternity."},
+    {y:"v", b:"Verse 2", x:"Crown Him the Lord of life,<br>Who triumphed oer the grave,<br>And rose victorious in the strife<br>For those He came to save."}
+  ]},
+  {n:11, t:"I am so Glad our Father in heaven", m:"Ma Olu Anzosi Lukudru", l:[
+    {y:"v", b:"Verse 1", x:"Maolu anzo si ndro lokudru,<br>Opi Yesu a ma leka dro si,<br>Lejo di a la buku a ra,<br>Leka Yesu dri rii ogboro ndro."},
+    {y:"c", b:"Chorus", x:"Yesu ole ma ole ma okposi<br>Yesu ole ma anzo si ndro<br>Asi ebwe Yesu dri ri si,<br>Yesu alema amvupi."},
+    {y:"v", b:"Verse 2", x:"Yesu kristo ole ma anzo si ndro<br>Leka eji ani inyaku dri ni<br>Leka Yesu dri ri ogboro ndro."},
+    {y:"v", b:"Verse 3", x:"Enzi madri si josa me de ra<br>Ka ma ungwe anidri arile<br>Leka Yesu dri rii ogboro"},
+    {y:"v", b:"Verse 4", x:"Jo mandre ingwe yesu dri ni ra<br>Ma longo anzo dri ri ngo ani ni,<br>Leka yesu dri rii ogboro ndro."},
+    {y:"v", b:"Verse 5", x:"Yesu ole ba cidru vudri ndro<br>Ama longo ngo kare aluga,<br>Leka Yesu dri amvu vudri ni."}
+  ]},
+  {n:12, t:"Tis so sweet to trust in Jesus", m:"Geni Loso ri Yesu Dri", l:[
+    {y:"v", b:"Verse 1", x:"Geni loso ri Yesu dri,<br>Nya I lejo anidri,<br>Nyovu dru lejo anidri ga,<br>Nyini lejo Yesu dri."},
+    {y:"c", b:"Chorus", x:"Opi Yesu ma nyi igeni,<br>Ma nyi igeni lokudru,<br>Yesu Kiristo Opi madri,<br>Ma nyi igeni lokudru."},
+    {y:"v", b:"Verse 2", x:"Geni loso ri Yesu dri,<br>Nyigeni ari anidri<br>Ari nyidri koje ma"},
+    {y:"v", b:"Verse 3", x:"Geni loso ri Yesu dri,<br>Enzi nyidri ebejo,<br>Lidri loso ri esujo."},
+    {y:"v", b:"Verse 4", x:"Ma asi egbwe Opi Yesu si,<br>Ani saa cidru amatro,<br>Ndi ma care bu a ga."}
+  ]},
+  {n:13, t:"What a fellowship what a joy divine", m:"Kare alu ga ba ka anzo esu", l:[
+    {y:"v", b:"Verse 1", x:"Kare alu ga ba ka anzo esu,<br>Adi anzo esu Yesu dri,<br>Asi ebwe tro le sa kpo laka<br>Adi anzo esu Yesu dri,"},
+    {y:"c", b:"Chorus", x:"Nyemu eze nyemu Yesu Yesu Opi dri<br>Nyemu eze nyemu Yesu Yesu Opi dri"},
+    {y:"v", b:"Verse 2", x:"Lidri loso ri esua Yesu dri,<br>Adi anzo esu Yesu dri<br>Ovi loso ri leti anda ri iga<br>Adi anzo esu Yesu dri"},
+    {y:"v", b:"Verse 3", x:"Owo ecandi tro aludi sa iyo,<br>Adi anzo esu Yesu dri,<br>Asi ebwe tro adi esua ra,<br>Adi anzo esu Yesu dri."},
+    {y:"v", b:"Verse 4", x:"Androka ira si Yesu ole ku,<br>Adi anzo esu Yesu dri,<br>Ori tuka tro Yesu ole ku,<br>Adi anzo esu Yesu dri"},
+    {y:"v", b:"Verse 5", x:"Ta ndrika unzi agi beka tro,<br>Adi anzo esu Yesu dri,<br>Ta unzuka ogu tro Yesu ole ku<br>Adi anzo esu Yesu dri"}
+  ]},
+  {n:14, t:"He Leadeth Me", m:"Yesu nyi ma ta mba nyi i", l:[
+    {y:"v", b:"Verse 1", x:"Yesu nyi ma ta mba nyi i<br>Asi ebwe kwejo mani,<br>Kare cidru ma acire gar ii,<br>Yesu nyi ma ta mba tadru"},
+    {y:"c", b:"Chorus", x:"Yesu ale nyimba ma ta<br>Nyimba ma ta odu cidru<br>Ale nya vu koka tadru<br>Nya ma ta mbaka loso si"},
+    {y:"v", b:"Verse 2", x:"Vu keci jo mudi sa i<br>Jo vu kongwe pelere sa,<br>Nosi anzo kusa icandi<br>Nya ma ta mbaka loso si,"},
+    {y:"v", b:"Verse 3", x:"Opi ale nyiko madri<br>Aludi sa mebe nyi ku,<br>Asi ebwe mani retu,<br>Nya ma ta mbaka loso si"},
+    {y:"v", b:"Verse 4", x:"Jo ma ebu ni oko ra,<br>Ande jo enzi cidru ra,<br>Yesu mori dra alu sa ku,<br>Nya ma ta mbaka loso si."}
+  ]}
+];
+
+var currentHymn = null;
+var fromPage = 'home';
+var fontSize = 16;
+var saved = [];
+try { saved = JSON.parse(localStorage.getItem('mh_saved') || '[]'); } catch(e) {}
+
+function showPage(name) {
+  // Hide all pages
+  document.getElementById('home-page').style.display = 'none';
+  document.getElementById('hymns-page').style.display = 'none';
+  document.getElementById('about-page').style.display = 'none';
+  document.getElementById('detail-page').style.display = 'none';
+
+  // Update nav buttons
+  var nbs = document.querySelectorAll('.nb');
+  nbs[0].classList.toggle('active', name === 'home');
+  nbs[1].classList.toggle('active', name === 'hymns');
+  nbs[2].classList.toggle('active', name === 'about');
+
+  // Show selected page
+  if (name === 'home') document.getElementById('home-page').style.display = 'block';
+  if (name === 'hymns') document.getElementById('hymns-page').style.display = 'block';
+  if (name === 'about') document.getElementById('about-page').style.display = 'block';
+}
+
+function openHymn(idx, from) {
+  currentHymn = idx;
+  fromPage = from || 'home';
+  var h = HYMNS[idx];
+
+  document.getElementById('det-num').textContent = 'Hymn ' + h.n + ' - ' + h.m;
+  document.getElementById('det-title').textContent = h.t;
+
+  var html = '';
+  for (var i = 0; i < h.l.length; i++) {
+    var bl = h.l[i];
+    if (bl.y === 'c') {
+      html += '<div class="chorus-block"><div class="chorus-label">' + bl.b + '</div><div class="chorus-text">' + bl.x + '</div></div>';
+    } else {
+      html += '<div class="verse-block"><div class="verse-label">' + bl.b + '</div><div class="verse-text">' + bl.x + '</div></div>';
+    }
+  }
+  document.getElementById('lyrics-area').innerHTML = html;
+  document.getElementById('lyrics-area').style.fontSize = fontSize + 'px';
+
+  var isSaved = saved.indexOf(idx) > -1;
+  document.getElementById('save-btn').textContent = isSaved ? 'Saved' : 'Save';
+
+  // Hide all pages, show detail
+  document.getElementById('home-page').style.display = 'none';
+  document.getElementById('hymns-page').style.display = 'none';
+  document.getElementById('about-page').style.display = 'none';
+  document.getElementById('detail-page').style.display = 'block';
+
+  // Scroll to top
+  document.getElementById('lyrics-area').scrollTop = 0;
+  window.scrollTo(0, 0);
+}
+
+function closeHymn() {
+  document.getElementById('detail-page').style.display = 'none';
+  showPage(fromPage);
+}
+
+var dailyIdx = new Date().getDay() % HYMNS.length;
+
+function openDailyHymn() {
+  openHymn(dailyIdx, 'home');
+}
+
+function makeRow(h, idx, from) {
+  var row = document.createElement('div');
+  row.className = 'hrow';
+  row.innerHTML = '<div class="hnum">' + h.n + '</div><div class="hinfo"><div class="htitle">' + h.t + '</div><div class="hmadi">' + h.m + '</div></div><span class="harr">›</span>';
+  row.onclick = function() { openHymn(idx, from); };
+  return row;
+}
+
+function buildHomeList() {
+  var el = document.getElementById('home-list');
+  el.innerHTML = '';
+  for (var i = 0; i < Math.min(5, HYMNS.length); i++) {
+    el.appendChild(makeRow(HYMNS[i], i, 'home'));
+  }
+}
+
+function buildHymnsList(query) {
+  var fl = HYMNS;
+  if (query) {
+    var q = query.toLowerCase();
+    fl = HYMNS.filter(function(h) {
+      return h.t.toLowerCase().indexOf(q) > -1 ||
+             h.m.toLowerCase().indexOf(q) > -1 ||
+             String(h.n).indexOf(q) > -1;
+    });
+  }
+  document.getElementById('hcount').textContent = fl.length + ' hymns';
+  var el = document.getElementById('hymns-list');
+  el.innerHTML = '';
+  if (!fl.length) {
+    el.innerHTML = '<div style="text-align:center;padding:30px;color:#999;">No hymns found</div>';
+    return;
+  }
+  for (var i = 0; i < fl.length; i++) {
+    el.appendChild(makeRow(fl[i], HYMNS.indexOf(fl[i]), 'hymns'));
+  }
+}
+
+function searchHymns(v) { buildHymnsList(v); }
+
+function changeFont(d) {
+  fontSize = Math.min(24, Math.max(12, fontSize + d));
+  document.getElementById('fval').textContent = fontSize;
+  var la = document.getElementById('lyrics-area');
+  if (la) la.style.fontSize = fontSize + 'px';
+}
+
+function saveHymn() {
+  if (currentHymn === null) return;
+  var i = saved.indexOf(currentHymn);
+  if (i === -1) saved.push(currentHymn); else saved.splice(i, 1);
+  try { localStorage.setItem('mh_saved', JSON.stringify(saved)); } catch(e) {}
+  document.getElementById('save-btn').textContent = saved.indexOf(currentHymn) > -1 ? 'Saved' : 'Save';
+}
+
+function shareHymn() {
+  if (currentHymn === null) return;
+  var h = HYMNS[currentHymn];
+  var t = 'Madi Hymns\nHymn ' + h.n + ': ' + h.t + '\n(' + h.m + ')\n\n';
+  for (var i = 0; i < h.l.length; i++) {
+    var txt = h.l[i].x.replace(/<br>/g, '\n');
+    t += '[' + h.l[i].b + ']\n' + txt + '\n\n';
+  }
+  t += 'Shared from Madi Hymns - JIT Global Impact Ministries\njitglobalimpact@gmail.com | +256782716168';
+  window.open('https://wa.me/?text=' + encodeURIComponent(t), '_blank');
+}
+
+function toggleTheme() {
+  document.getElementById('tbtn').textContent = '🌙';
+}
+
+// Set daily hymn
+document.getElementById('daily-title').textContent = HYMNS[dailyIdx].t;
+document.getElementById('daily-num').textContent = 'Hymn ' + HYMNS[dailyIdx].n + ' - ' + HYMNS[dailyIdx].m;
+document.getElementById('about-count').textContent = HYMNS.length + ' hymns loaded';
+
+// Build lists
+buildHomeList();
+buildHymnsList('');
+</script>
+</body>
+</html>
